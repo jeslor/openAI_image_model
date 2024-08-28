@@ -15,24 +15,30 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { searchForImages } from "@/lib/actions/search.actions"
 
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  search: z.string().min(2, {
+    message: "Word must be atleast 2 characters.",
   }),
 })
 
 
 export function SearchForm() {
-  
-
     const form = useForm({
         resolver: zodResolver(formSchema),
         })
 
 
-    const onSubmit = (data: any) => {
-        console.log(data.username)
+    const onSubmit = async(data: any) => {
+        try {
+          const res =  await searchForImages(data.search);
+          console.log(res);
+          
+        } catch (error) {
+          console.log("client error", error);
+          
+        }
     }
 
   return (
@@ -42,13 +48,13 @@ export function SearchForm() {
           
           control={form.control}
           name="search"
-          render={({ field }:any) => (
+          render={({ field }) => (
             <FormItem  className="w-full h-fit">
               <FormControl>
-                <Input className="rounded-[24px] focus:shadow-lg h-[50px] tablet:border-[2px]" placeholder="search for something" {...field} />
+                <Input className="rounded-[24px] focus:shadow-sm h-[50px] tablet:border-[2px]" placeholder="search for something" {...field} />
               </FormControl>
              
-              <FormMessage />
+              <FormMessage className="text-[12px]" />
             </FormItem>
           )}
         />
