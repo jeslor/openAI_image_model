@@ -23,7 +23,7 @@ const formSchema = z.object({
 })
 
 
-export function ProfileForm() {
+export function SearchForm() {
   
 
     const form = useForm({
@@ -37,24 +37,22 @@ export function ProfileForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 flex max-w-[700px] w-full mx-auto items-center h-fit relative">
         <FormField
+          
           control={form.control}
-          name="username"
+          name="search"
           render={({ field }:any) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
+            <FormItem  className="w-full h-fit">
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input className="rounded-[24px] focus:shadow-lg h-[50px] tablet:border-[2px]" placeholder="search for something" {...field} />
               </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
+             
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button className="!mt-0 absolute right-0 rounded-r-[24px] h-full" type="submit">Search</Button>
       </form>
     </Form>
   )
