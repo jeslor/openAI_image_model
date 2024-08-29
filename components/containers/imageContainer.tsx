@@ -13,7 +13,7 @@ const ImageContainer = () => {
         <Loader />
     </div>
     :
-    <div className="grid grid-cols-auto-fill-200  gap-x-4 gap-y-6 bg-black flex-2  w-full px-6 pt-4 grow-[2] rounded-t-[16px] tablet:rounded-t[24px] desktop:rounded-t-[32px] items-center">
+    <div className="grid grid-cols-auto-fill-200  gap-x-3 gap-y-6 bg-black flex-2  w-full px-6 pt-4 grow-[2] rounded-t-[16px] tablet:rounded-t[24px] desktop:rounded-t-[32px] items-center">
         {
             images.map((image:imageType, index:number) => (
                 <div key={index} className="flex flex-col items-start justify-start group h-fit relative">

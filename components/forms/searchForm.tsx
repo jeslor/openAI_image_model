@@ -31,10 +31,13 @@ export function SearchForm() {
 
     const form = useForm({
         resolver: zodResolver(formSchema),
+        defaultValues: {
+          search: "",
+        },
         })
 
 
-    const onSubmit = async(data: any) => {
+    const onSubmit = async(data:z.infer<typeof formSchema>) => {
         try {
           setLoader(true);
           const res =  await searchForImages(data.search);
@@ -47,7 +50,6 @@ export function SearchForm() {
             } else {
               generatedImages = [{url: res.info[0].url, revised_prompt: res.topic}];
             }
-
             const currentImages = localStorage.getItem("images") ? JSON.parse(localStorage.getItem("images") as string) : [];
             localStorage.setItem("images", JSON.stringify([...currentImages, ...generatedImages]));
             setImages([ ...generatedImages, ...currentImages]);
@@ -71,7 +73,6 @@ export function SearchForm() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 flex max-w-[700px] w-full mx-auto items-center h-fit relative">
         <FormField
-          
           control={form.control}
           name="search"
           render={({ field }) => (
