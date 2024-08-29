@@ -11,9 +11,9 @@ export function StateProvider({children}: Readonly<{children: ReactNode}>) {
 
     useEffect(() => {
        setImages(localStorage.getItem("images") ? JSON.parse(localStorage.getItem("images") as string) : []);
-    }, [images]);
+    }, []);
 
-    
+
     return (
         <StateContext.Provider value={{images, setImages, loader, setLoader}}>
             {children}

@@ -18,20 +18,23 @@ export const searchForImages = async (query: string) => {
 
 
         const generatedImages = await client.images.generate({
-            model: "dall-e-3",
-            prompt: `generate 3 images of ${query}`,
+            model: "dall-e-2",
+            prompt: `generate images of ${query}`,
             size: "1024x1024",
             quality: "standard",
-            n: 1,
+            n:3,
         });
 
-        console.log(generatedImages.data);
-        return JSON.parse(JSON.stringify({info: generatedImages.data, message: "success"}));
+        console.log(generatedImages);
+        return JSON.parse(JSON.stringify({info: generatedImages.data, message: "success", topic: query}));
         
         
         
     } catch (error:any) {
+        console.log("error", error);
+        
        const {message} = error;
+
        
         return JSON.parse(JSON.stringify({info: message, message: "error"}));
         

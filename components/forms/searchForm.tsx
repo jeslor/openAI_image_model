@@ -39,10 +39,18 @@ export function SearchForm() {
           setLoader(true);
           const res =  await searchForImages(data.search);
           if (res.message === "success") {
-            console.log("success", res);
+            let generatedImages = [];
+            if (res.info.length > 1) {
+               generatedImages = res.info.map((image:any) => {
+                return {url: image.url, revised_prompt: res.topic}
+              });
+            } else {
+              generatedImages = [{url: res.info[0].url, revised_prompt: res.topic}];
+            }
+
             const currentImages = localStorage.getItem("images") ? JSON.parse(localStorage.getItem("images") as string) : [];
-            localStorage.setItem("images", JSON.stringify([...currentImages, ...res.info]));
-            setImages([...currentImages, ...res.info]);
+            localStorage.setItem("images", JSON.stringify([...currentImages, ...generatedImages]));
+            setImages([ ...generatedImages, ...currentImages]);
             form.reset();
             setLoader(false);
             
@@ -75,7 +83,7 @@ export function SearchForm() {
             </FormItem>
           )}
         />
-        <Button className="!mt-0 absolute right-0 rounded-r-[24px] h-full" type="submit">Search</Button>
+        <Button className="!mt-0 absolute right-0 rounded-r-[24px] h-[50px] top-0" type="submit">Search</Button>
       </form>
     </Form>
   )
