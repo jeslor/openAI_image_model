@@ -9,17 +9,17 @@ const client = new OpenAI({
 
 export const searchForImages = async (query: string) => {
     try {
-        const res = await client.chat.completions.create({
-            messages: [{ role: "user", content: "Say this is a test" }],
-            model: "gpt-4o-mini",
+        const completionResponse = await client.chat.completions.create({
+            messages: [{ role: "user", content: query }],
+            model: "gpt-3.5-urbo",
         });
+        return JSON.parse(JSON.stringify(completionResponse.choices[0].message.content));
         
-        console.log(res);
         
-
-        
-    } catch (error) {
-        console.log('server error', error);
+    } catch (error:any) {
+       const {message} = error;
+       
+        return JSON.parse(JSON.stringify(message));
         
     }
 }
