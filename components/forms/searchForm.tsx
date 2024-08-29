@@ -1,4 +1,5 @@
 "use client"
+import { useContext, useState } from "react"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -16,6 +17,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { searchForImages } from "@/lib/actions/search.actions"
+import { StateContext } from "../stateProvider/stateProvider"
 
 const formSchema = z.object({
   search: z.string().min(2, {
@@ -25,6 +27,8 @@ const formSchema = z.object({
 
 
 export function SearchForm() {
+  const {images, setImages} = useContext(StateContext);
+
     const form = useForm({
         resolver: zodResolver(formSchema),
         })
@@ -33,7 +37,17 @@ export function SearchForm() {
     const onSubmit = async(data: any) => {
         try {
           const res =  await searchForImages(data.search);
-          console.log(res);
+          if (res.message === "success") {
+            console.log("success", res);
+            setImages([...images, ...res.info]);
+            form.reset();
+            
+          }
+
+          if (res.message === "error") {
+            console.log("error", res);
+            
+          }
           
         } catch (error) {
           console.log("client error", error);
