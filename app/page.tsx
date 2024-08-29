@@ -11,9 +11,7 @@ export default function Home() {
           </p>
           <SearchForm />
         </div>
-        <div>
         <ImageContainer />
-        </div>
     </main>
   );
 }

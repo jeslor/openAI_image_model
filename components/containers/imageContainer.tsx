@@ -9,7 +9,7 @@ interface imageType {
 const ImageContainer = () => {
     const { images, loader } = useContext(StateContext);
   return (
-    !loader ? <div className="max-h-[30vh] h-full w-full">
+    loader ? <div className="max-h-[30vh] h-full w-full">
         <Loader />
     </div>
     :

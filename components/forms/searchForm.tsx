@@ -40,7 +40,9 @@ export function SearchForm() {
           const res =  await searchForImages(data.search);
           if (res.message === "success") {
             console.log("success", res);
-            setImages([...images, ...res.info]);
+            const currentImages = localStorage.getItem("images") ? JSON.parse(localStorage.getItem("images") as string) : [];
+            localStorage.setItem("images", JSON.stringify([...currentImages, ...res.info]));
+            setImages([...currentImages, ...res.info]);
             form.reset();
             setLoader(false);
             
