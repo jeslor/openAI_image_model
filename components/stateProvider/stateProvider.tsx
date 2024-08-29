@@ -6,6 +6,7 @@ export const StateContext = createContext<any>(null);
 export function StateProvider({children}: Readonly<{children: ReactNode}>) {
 
     const [images, setImages] = useState<any>([]);
+    const [error, setError] = useState<string>("");
     const [loader, setLoader] = useState<boolean>(false);
 
 
@@ -15,7 +16,7 @@ export function StateProvider({children}: Readonly<{children: ReactNode}>) {
 
 
     return (
-        <StateContext.Provider value={{images, setImages, loader, setLoader}}>
+        <StateContext.Provider value={{images, setImages, loader, setLoader, error, setError}}>
             {children}
         </StateContext.Provider>
     );

@@ -27,7 +27,7 @@ const formSchema = z.object({
 
 
 export function SearchForm() {
-  const {images, setImages, setLoader} = useContext(StateContext);
+  const {setError, setImages, setLoader} = useContext(StateContext);
 
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -59,7 +59,10 @@ export function SearchForm() {
           }
 
           if (res.message === "error") {
-            console.log("error", res);
+            setLoader(false);
+            setError(res.info)
+            form.reset();
+            console.log("error", res.info);
             
           }
           
