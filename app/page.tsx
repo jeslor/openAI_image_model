@@ -1,3 +1,4 @@
+import ImageContainer from "@/components/containers/imageContainer";
 import { SearchForm } from "@/components/forms/searchForm";
 
 export default function Home() {
@@ -9,6 +10,9 @@ export default function Home() {
             This is a simple example of how to use the OpenAI image model. You can use it to generate images from text.
           </p>
           <SearchForm />
+        </div>
+        <div>
+        <ImageContainer />
         </div>
     </main>
   );

@@ -27,7 +27,7 @@ const formSchema = z.object({
 
 
 export function SearchForm() {
-  const {images, setImages} = useContext(StateContext);
+  const {images, setImages, setLoader} = useContext(StateContext);
 
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -36,11 +36,13 @@ export function SearchForm() {
 
     const onSubmit = async(data: any) => {
         try {
+          setLoader(true);
           const res =  await searchForImages(data.search);
           if (res.message === "success") {
             console.log("success", res);
             setImages([...images, ...res.info]);
             form.reset();
+            setLoader(false);
             
           }
 
@@ -67,7 +69,6 @@ export function SearchForm() {
               <FormControl>
                 <Input className="rounded-[24px] focus:shadow-sm h-[50px] tablet:border-[2px]" placeholder="search for something" {...field} />
               </FormControl>
-             
               <FormMessage className="text-[12px]" />
             </FormItem>
           )}

@@ -19,7 +19,7 @@ export const searchForImages = async (query: string) => {
 
         const generatedImages = await client.images.generate({
             model: "dall-e-3",
-            prompt: "a white siamese cat",
+            prompt: `generate 3 images of ${query}`,
             size: "1024x1024",
             quality: "standard",
             n: 1,
