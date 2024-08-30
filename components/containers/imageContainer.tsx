@@ -14,7 +14,7 @@ const ImageContainer = () => {
         <Loader />
     </div>
     :
-    <section className="w-full">
+    <section className="w-full contents">
         <h2 className="text-2xl font-semibold text-center px-4 text-red-500">{error}</h2>
         <div className="grid grid-cols-auto-fill-200  gap-x-3 gap-y-6 bg-black flex-2  w-full px-6 pt-4 grow-[2] rounded-t-[16px] tablet:rounded-t[24px] desktop:rounded-t-[32px] items-center">
             {
